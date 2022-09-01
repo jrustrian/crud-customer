@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
 
     public function index()
     {
-        //
+        $customers = Customer::get();
+        return $customers;
     }
 
 
@@ -25,12 +27,13 @@ class CustomerController extends Controller
     }
 
 
-  
+
 
 
     public function edit($id)
     {
-        //
+        $customers = Customer::findOrFail($id);
+        return $customers;
     }
 
 
@@ -42,6 +45,7 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
-        //
+        $customers = Customer::findOrFail($id);
+        $customers->delete();
     }
 }
