@@ -1,41 +1,28 @@
-
-
 require('./bootstrap');
+import vue from 'vue'
+window.Vue = vue;
 
-window.Vue = require('vue').default;
+import App from './components/App.vue';
 
+//importamos Axios
+import VueAxios from 'vue-axios';
+import axios from 'axios';
 
+//Importamos y configuramos el Vue-router
+import VueRouter from 'vue-router';
+import {routes} from './routes';
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.use(VueRouter);
+Vue.use(VueAxios, axios);
 
+const router = new VueRouter({
+    mode: 'history',
+    routes: routes
+});
 
-
-
-
-new Vue({
-    el: '#crud',
-    created: function () {
-        this.getKeeps();
-    },
-    data: {
-        Keeps: []
-    },
-    methods: {
-        getKeeps: function () {
-            var urlKeeps = 'customers';
-            axios.get(urlKeeps).then(response => {
-                this.keeps = response.data
-            });
-        },
-        deleteKeep: function(keep) {
-            var url = 'customers/' + keep.id;
-            axios.delete(url).then(response => {
-                this.getKeeps();
-            });
-        }
-
-
-    }
-
+//finalmente, definimos nuestra app de Vue
+const app = new Vue({
+    el: '#app',
+    router: router,
+    render: h => h(App),
 });
