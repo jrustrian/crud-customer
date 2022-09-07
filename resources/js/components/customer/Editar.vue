@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button> <router-link :to='{name:"mostrarCustomers"}' class="btn btn-danger">Cancelar</router-link>
                             </div>
                         </div>                          
                     </form>

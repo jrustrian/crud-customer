@@ -7,6 +7,29 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function getAll(){
+        $customers=Customer::all();
+        return $customers;
+    }
+
+    public function deleteCustomer($id){
+        $customer= $this->getCustomer($id);
+        $customer->delete();
+        return $customer;
+    }
+    public function getCustomer($id)
+    {
+        $customer = Customer::find($id);
+        return $customer;
+    }
+
+    public function editCustomer($id, Request $request){
+        $customer = $this->getCustomer($id);
+        $customer->fill($request->all())->save();
+        return $customer;
+    }
+    
+
     public function index()
     {
         $customers = Customer::all(['id','name','address','phone_number','created_at', 'updated_at']);
@@ -45,4 +68,6 @@ class CustomerController extends Controller
             'mensaje'=>'¡Registro eliminado correctamente!'
         ]);
     }
+
+
 }
